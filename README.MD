@@ -12,7 +12,7 @@ code is only divided into three modules:
 For building is used **maven**. In a root of the project run:
 `mvn clean install`
 
-Boths modules will be builded.
+Both modules will be built.
 
 ## Usage
 First the build have to be done.
@@ -23,7 +23,13 @@ In a folder amqp/amqp-receiver/target run command:
 In a folder amqp/amqp-receiver/target run command:
 `java -jar amqp-sender-1.1-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
 
-## Version 1.1
+## Versions
+
+### Version 1.2
+* Code refactoring.
+* Adds dependencies to Log4j.
+
+### Version 1.1
 * Adds new shared module AMQP Common.
 * Queue is required as an input parameter (q).
-* Received message info is allways written to a console.
+* Received message info is always written to a console.
