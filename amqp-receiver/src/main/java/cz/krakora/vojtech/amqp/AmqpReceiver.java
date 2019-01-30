@@ -2,11 +2,11 @@ package cz.krakora.vojtech.amqp;
 
 import com.microsoft.azure.servicebus.*;
 import com.microsoft.azure.servicebus.primitives.ConnectionStringBuilder;
+import cz.krakora.vojtech.amqp.handlers.CustomMessageHandler;
 import org.apache.commons.cli.*;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -85,25 +85,7 @@ public class AmqpReceiver {
 
     void registerReceiver(QueueClient queueClient, ExecutorService executorService) throws Exception {
         // register the RegisterMessageHandler callback with executor service
-        queueClient.registerMessageHandler(new IMessageHandler() {
-                                               // callback invoked when the message handler loop has obtained a message
-                                               public CompletableFuture<Void> onMessageAsync(IMessage message) {
-                                                   // receives message is passed to callback
-                                                   System.out.println("Message was received:");
-                                                   System.out.println("- MessageId = " + message.getMessageId());
-                                                   System.out.println("- SequenceNumber = " + message.getSequenceNumber());
-                                                   System.out.println("- EnqueueTimeUtc = " + message.getEnqueuedTimeUtc());
-                                                   System.out.println("- ExpiresAtUtc = " + message.getExpiresAtUtc());
-                                                   System.out.println("- ContentType = " + message.getContentType());
-
-                                                   return CompletableFuture.completedFuture(null);
-                                               }
-
-                                               // callback invoked when the message handler has an exception to report
-                                               public void notifyException(Throwable throwable, ExceptionPhase exceptionPhase) {
-                                                   System.out.printf(exceptionPhase + "-" + throwable.getMessage());
-                                               }
-                                           },
+        queueClient.registerMessageHandler(new CustomMessageHandler(),
                 // 1 concurrent call, messages are auto-completed, auto-renew duration
                 new MessageHandlerOptions(1, true, Duration.ofMinutes(1)),
                 executorService);
