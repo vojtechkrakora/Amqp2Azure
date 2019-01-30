@@ -8,26 +8,8 @@
         <version>1.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>cz.krakora.vojtech.amqp</groupId>
-            <artifactId>amqp-common</artifactId>
-            <version>1.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>cz.krakora.vojtech.amqp</groupId>
-            <artifactId>amqp-common</artifactId>
-            <version>1.1</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
 
-    <artifactId>amqp-sender</artifactId>
+    <artifactId>amqp-common</artifactId>
     <build>
         <plugins>
             <plugin>
@@ -45,7 +27,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>cz.krakora.vojtech.amqp.AmqpSender</mainClass>
+                            <mainClass>cz.krakora.vojtech.amqp.AmqpReceiver</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -77,7 +59,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
                             <mainClass>
-                                cz.krakora.vojtech.amqp.AmqpSender
+                                cz.krakora.vojtech.amqp.AmqpReceiver
                             </mainClass>
                         </manifest>
                     </archive>
@@ -96,7 +78,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        cz.krakora.vojtech.amqp.AmqpSender
+                                        cz.krakora.vojtech.amqp.AmqpReceiver
                                     </mainClass>
                                 </manifest>
                             </archive>
@@ -109,4 +91,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
