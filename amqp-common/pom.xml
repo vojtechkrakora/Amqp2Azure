@@ -8,20 +8,8 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>cz.krakora.vojtech.amqp</groupId>
-            <artifactId>amqp-common</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-    </properties>
 
-    <artifactId>amqp-receiver</artifactId>
+    <artifactId>amqp-common</artifactId>
     <build>
         <plugins>
             <plugin>
@@ -103,4 +91,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

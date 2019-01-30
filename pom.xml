@@ -11,6 +11,7 @@
     <modules>
         <module>amqp-sender</module>
         <module>amqp-receiver</module>
+        <module>amqp-common</module>
     </modules>
 
     <dependencies>

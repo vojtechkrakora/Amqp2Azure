@@ -6,14 +6,14 @@ import com.microsoft.azure.servicebus.Message;
 import com.microsoft.azure.servicebus.QueueClient;
 import com.microsoft.azure.servicebus.ReceiveMode;
 import com.microsoft.azure.servicebus.primitives.ConnectionStringBuilder;
-import org.apache.commons.cli.*;
+import cz.krakora.vojtech.amqp.common.AmqpCommon;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.function.Function;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -24,14 +24,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class AmqpSender {
 
     static final Gson GSON = new Gson();
-    static final String SB_SAMPLES_CONNECTIONSTRING = "SB_SAMPLES_CONNECTIONSTRING";
-    public static final String QUEUE_NAME = "vkrakoraqueue";
-
     public static void main(String[] args) {
-        System.exit(runApp(args, (connectionString) -> {
+        System.exit(AmqpCommon.runApp(args, (connectionInfo) -> {
             AmqpSender app = new AmqpSender();
             try {
-                app.run(connectionString);
+                app.run(connectionInfo[0],connectionInfo[1]);
                 return 0;
             } catch (Exception e) {
                 System.out.printf("%s", e.toString());
@@ -40,45 +37,13 @@ public class AmqpSender {
         }));
     }
 
-    public static int runApp(String[] args, Function<String, Integer> run) {
-        try {
 
-            String connectionString = null;
-
-            // parse connection string from command line
-            Options options = new Options();
-            options.addOption(new Option("c", true, "Connection string"));
-            CommandLineParser clp = new DefaultParser();
-            CommandLine cl = clp.parse(options, args);
-            if (cl.getOptionValue("c") != null) {
-                connectionString = cl.getOptionValue("c");
-            }
-
-            // get overrides from the environment
-            String env = System.getenv(SB_SAMPLES_CONNECTIONSTRING);
-            if (env != null) {
-                connectionString = env;
-            }
-
-            if (connectionString == null) {
-                HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("run jar with", "", options, "", true);
-                return 2;
-            }
-            return run.apply(connectionString);
-        } catch (Exception e) {
-            System.out.printf("%s", e.toString());
-            return 3;
-        }
-    }
-
-
-    public void run(String connectionString) throws Exception {
+    public void run(String connectionString, String queueName) throws Exception {
         // Create a QueueClient instance for sending and then asynchronously send messages.
         // Close the sender once the send operation is complete.
-        QueueClient sendClient = new QueueClient(new ConnectionStringBuilder(connectionString, QUEUE_NAME), ReceiveMode.PEEKLOCK);
+        QueueClient sendClient = new QueueClient(new ConnectionStringBuilder(connectionString, queueName), ReceiveMode.PEEKLOCK);
         this.sendMessagesAsync(sendClient).thenRunAsync(() -> sendClient.closeAsync());
-        waitForEnter(10);
+        AmqpCommon.waitForEnter(10);
     }
 
     /**
@@ -118,20 +83,5 @@ public class AmqpSender {
                     }));
         }
         return CompletableFuture.allOf(tasks.toArray(new CompletableFuture<?>[tasks.size()]));
-    }
-
-    private void waitForEnter(int seconds) {
-        ExecutorService executor = Executors.newCachedThreadPool();
-        try {
-            executor.invokeAny(Arrays.asList(() -> {
-                System.in.read();
-                return 0;
-            }, () -> {
-                Thread.sleep(seconds * 1000);
-                return 0;
-            }));
-        } catch (Exception e) {
-            // absorb
-        }
     }
 }
