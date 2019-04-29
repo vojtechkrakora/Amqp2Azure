@@ -17,8 +17,6 @@ import java.util.concurrent.Executors;
  * https://github.com/Azure/azure-service-bus
  */
 public class AmqpReceiver {
-    static final String SB_SAMPLES_CONNECTIONSTRING = "SB_SAMPLES_CONNECTIONSTRING";
-    private static String queueName = "NOT_SET";
 
     public static void main(String[] args) {
         System.exit(AmqpCommon.runApp(args, (connectionInfo) -> {
