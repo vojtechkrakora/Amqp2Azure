@@ -16,6 +16,8 @@ Both modules will be built.
 
 ## Usage
 First the build have to be done.
+
+`<Endpoint>` example is `Endpoint=sb://mynamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=asdfasdfasfasf4654564`
 ### Run AMQP Receiver
 In a folder amqp/amqp-receiver/target run command:
 `java -jar amqp-receiver-1.1-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
