@@ -20,10 +20,10 @@ First the build have to be done.
 `<Endpoint>` example is `Endpoint=sb://mynamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=asdfasdfasfasf4654564`
 ### Run AMQP Receiver
 In a folder amqp/amqp-receiver/target run command:
-`java -jar amqp-receiver-1.1-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
+`java -jar amqp-receiver-1.2-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
 ### Run AMQP Sender
 In a folder amqp/amqp-receiver/target run command:
-`java -jar amqp-sender-1.1-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
+`java -jar amqp-sender-1.2-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
 
 ## Versions
 
