@@ -18,10 +18,10 @@ Both modules will be built.
 First the build have to be done.
 ### Run AMQP Receiver
 In a folder amqp/amqp-receiver/target run command:
-`java -jar amqp-receiver-1.2-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
+`java -jar amqp-receiver-1.3-SNAPSHOT-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
 ### Run AMQP Sender
 In a folder amqp/amqp-receiver/target run command:
-`java -jar amqp-sender-1.2-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
+`java -jar amqp-sender-1.3-SNAPSHOT-jar-with-dependencies.jar -c <Endpoint> -q <QueueName>`
 
 ## Versions
 
